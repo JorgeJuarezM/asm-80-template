@@ -1,0 +1,9 @@
+services:
+  builder:
+    image: ubuntu
+    platform: linux/amd64
+    build: .
+    working_dir: /code
+    volumes:
+      - ..:/code
+    

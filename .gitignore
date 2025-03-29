@@ -1,0 +1,11 @@
+bin/
+obj/
+compiler/
+*.ihx 
+*.rst 
+*.lst 
+*.rel 
+*.hlr
+*.asm_
+
+.DS_Store
