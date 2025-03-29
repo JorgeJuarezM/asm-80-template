@@ -1,5 +1,5 @@
 build_asm: clean
-	@docker compose -f docker/docker-compose.yml \
+	docker compose -f docker/docker-compose.yml \
 		run --rm builder bash /code/scripts/build.sh
 
 clean:

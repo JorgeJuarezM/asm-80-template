@@ -1,21 +1,33 @@
 #!/bin/bash
 set -e
-cd /code/
 
-# find . -name "*.asm" ! -name "boot.asm" -exec ./compiler/as8085 -l -o {} \;
+echo "Building libraries"
+lib_files=$(find ./libs -name "*.asm")
+./compiler/as8085 -l -o $lib_files
+find ./libs -name "*.rel" > libs/xpire.lib
 
-find . -name "*.asm" | while read f; do
+echo "Building game"
+find ./src -name "*.asm" | while read f; do
     ./compiler/as8085 -l -o $f
 done
 
+echo "Linking game"
+rel_files=$(find ./src -name "*.rel")
+./compiler/aslink -n -u -l libs/xpire -o -i+game.ihx $rel_files
 
-rel_files=$(find . -name "*.rel")
-./compiler/aslink -n -u -o  -a _ColorAttrs=0x4000 \
-                            -a _DATA=0x4010 \
-                            -a _CODE=0x50 \
-                            -i+game.ihx ${rel_files}
+echo "Converting to binary"
 ./compiler/hex2bin -p 00  game.ihx
-mkdir -p obj/
-mv *.ihx *.rst *.lst *.rel *.hlr obj/
+
+move_files() {
+    mkdir -p obj/$1
+    mv $1/*.lst $1/*.rel $1/*.hlr obj/$1
+}
+
+move_files src
+mv game.ihx obj
+
+move_files libs
+mv libs/xpire.lib obj/libs
+
 mkdir -p bin/
 mv *.bin bin/
