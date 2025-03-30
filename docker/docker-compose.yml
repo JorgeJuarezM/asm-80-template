@@ -7,3 +7,4 @@ services:
     volumes:
       - ..:/code
     entrypoint: ["bash","/code/scripts/build.sh"]
+    
