@@ -9,4 +9,3 @@ clean:
 
 run: build_asm
 	python ../../../xpire/main.py run .bin/game.bin -m cpm80
-

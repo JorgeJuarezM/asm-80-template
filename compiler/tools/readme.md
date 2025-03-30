@@ -19,8 +19,8 @@ See the GNU General Public License for more details.
 License   along   with    this    program.     If    not,    see
 http://www.gnu.org/licenses/.
 
-================================================================
-Previous licence was taken from the original publication.
+### ================================================================
+### Previous licence was taken from the original publication.
 [https://shop-pdp.net/ashtml/asxget.php](https://shop-pdp.net/ashtml/asxget.php)
 
 # This project uses the tool Hex2Bin.
@@ -28,3 +28,6 @@ Previous licence was taken from the original publication.
 
 ## Hex2Bin Licence.
 [http://www.opensource.org/licenses/bsd-license.php](http://www.opensource.org/licenses/bsd-license.php)
+
+### Previous licence was taken from the original publication.
+[https://hex2bin.sourceforge.net/](https://hex2bin.sourceforge.net/)
