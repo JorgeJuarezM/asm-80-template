@@ -2,8 +2,9 @@
 set -e
 
 echo "Building libraries"
-lib_files=$(find ./libs -name "*.asm")
-./compiler/as8085 -l -o $lib_files
+find ./libs -name "*.asm" | while read f; do
+    ./compiler/as8085 -l -o $f
+done
 find ./libs -name "*.rel" > libs/xpire.lib
 
 echo "Building game"
@@ -13,21 +14,23 @@ done
 
 echo "Linking game"
 rel_files=$(find ./src -name "*.rel")
-./compiler/aslink -n -u -l libs/xpire -o -i+game.ihx $rel_files
+./compiler/aslink -n -u -a _CODE=0x100 -l libs/xpire -o -i+game.ihx $rel_files
 
 echo "Converting to binary"
 ./compiler/hex2bin -p 00  game.ihx
 
-move_files() {
-    mkdir -p obj/$1
-    mv $1/*.lst $1/*.rel $1/*.hlr obj/$1
-}
+mkdir -p .obj/src
+find ./src -name "*.rel" -exec mv {} .obj/src \;
+find ./src -name "*.lst" -exec mv {} .obj/src \;
+find ./src -name "*.hlr" -exec mv {} .obj/src \;
+find ./src -name "*.rst" -exec mv {} .obj/src \;
 
-move_files src
-mv game.ihx obj
+mkdir -p .obj/libs
+find ./libs -name "*.rel" -exec mv {} .obj/libs \;
+find ./libs -name "*.lst" -exec mv {} .obj/libs \;
+find ./libs -name "*.hlr" -exec mv {} .obj/libs \;
+find ./libs -name "*.lib" -exec mv {} .obj/libs \;
 
-move_files libs
-mv libs/xpire.lib obj/libs
-
-mkdir -p bin/
-mv *.bin bin/
+mv game.ihx .obj/game.ihx
+mkdir -p .bin
+mv game.bin .bin/
