@@ -1,8 +1,8 @@
 .PHONY: build_asm clean run
-default: run
+default: build_asm
 
 build_asm: clean
-	docker compose -f docker/docker-compose.yml run --rm builder
+	docker compose run --rm builder
 
 clean:
 	@rm -rf .obj .bin

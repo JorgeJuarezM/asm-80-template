@@ -5,6 +5,6 @@ services:
     build: .
     working_dir: /code
     volumes:
-      - ..:/code
-    entrypoint: ["bash","/code/scripts/build.sh"]
+      - .:/code
+    entrypoint: ["bash","/code/compiler/scripts/build.sh"]
     

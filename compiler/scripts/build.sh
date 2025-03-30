@@ -3,21 +3,21 @@ set -e
 
 echo "Building libraries"
 find ./libs -name "*.asm" | while read f; do
-    ./compiler/as8085 -l -o $f
+    ./compiler/tools/as8085 -l -o $f
 done
 find ./libs -name "*.rel" > libs/xpire.lib
 
 echo "Building game"
 find ./src -name "*.asm" | while read f; do
-    ./compiler/as8085 -l -o $f
+    ./compiler/tools/as8085 -l -o $f
 done
 
 echo "Linking game"
 rel_files=$(find ./src -name "*.rel")
-./compiler/aslink -n -u -a _CODE=0x100 -l libs/xpire -o -i+game.ihx $rel_files
+./compiler/tools/aslink -n -u -a _CODE=0x100 -l libs/xpire -o -i+game.ihx $rel_files
 
 echo "Converting to binary"
-./compiler/hex2bin -p 00  game.ihx
+./compiler/tools/hex2bin -p 00  game.ihx
 
 mkdir -p .obj/src
 find ./src -name "*.rel" -exec mv {} .obj/src \;
