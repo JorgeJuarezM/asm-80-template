@@ -7,6 +7,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;
+.8080                       ; CPU model.
 .area _DATA                 ; Declare DATA Area.
 .area _CODE                 ; Declare CODE Area.
 ;;
@@ -22,8 +23,8 @@ _MAIN:
     LXI     D, string       ; DE = Pointer to string.
     CALL    print_string
 
-    MVI     A, 10           ; Number of characters to print.
-    MVI     E, "."          ; Character to print.
+    MVI     A, 20           ; Number of characters to print.
+    MVI     E, "-"          ; Character to print.
 print_char_loop:
     CALL    print_char
     DCR     A
@@ -31,7 +32,6 @@ print_char_loop:
     RET                     ; Finish program execution.
 ;;
 ;;  Define string to print.
+;;  String must finish with $ to indicate that has finished.
 ;;
-string: .ascii  "XPire => Hello World"
-        .DB     "$"
-
+string: .ascii  "XPire => Hello World\n\r$"
