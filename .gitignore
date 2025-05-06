@@ -1,6 +1,5 @@
-bin/
-obj/
-compiler/
+.bin/
+.obj/
 *.ihx 
 *.rst 
 *.lst 
